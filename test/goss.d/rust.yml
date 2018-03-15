@@ -1,0 +1,7 @@
+---
+command:
+  "sudo -u circleci bash -lc 'cargo --version'":
+    exit-status: 0
+
+  "sudo -u circleci bash -lc 'rustc --version'":
+    exit-status: 0
