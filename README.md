@@ -123,13 +123,13 @@ I'm now seeking to prove this out by building this container.
 
 Licensed at your discretion under either:
 
- - MIT (`./LICENSE-MIT`)
- - Apache License, Version 2.0 (`./LICENSE-APACHE`)
+ - [MIT](./LICENSE-MIT)
+ - [Apache License, Version 2.0](./LICENSE-APACHE)
 
  [docker]: https://hub.docker.com/r/naftulikay/circleci-lambda-rust/
  [docker.svg]: https://img.shields.io/docker/automated/naftulikay/circleci-lambda-rust.svg?maxAge=2592000
  [travis]: https://travis-ci.org/naftulikay/docker-circleci-lambda-rust
- [travis.svg]: https://travis-ci.org/naftulikay/docker-circleci-lambda-rust.svg
+ [travis.svg]: https://travis-ci.org/naftulikay/docker-circleci-lambda-rust.svg?branch=master
  [lambda]: https://docs.aws.amazon.com/lambda/latest/dg/current-supported-versions.html
  [openssl-workaround]: https://stackoverflow.com/a/49268370/128967
  [rust-openssl-static-example]: https://github.com/naftulikay/rust-openssl-static-example
