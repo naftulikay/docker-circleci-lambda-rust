@@ -73,7 +73,9 @@ RUN chmod 0755 ${RUST_HOME}/.local/bin/tfenv && \
   chown ${RUST_USER}:${RUST_USER} ${RUST_HOME}/.local/bin/tfenv
 
 # install rustup
-RUN curl https://sh.rustup.rs -sSf | sudo -u ${RUST_USER} sh -s -- -y && \
+RUN curl -o /tmp/rustup-init -sSf https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init && \
+  chmod +x /tmp/rustup-init && sudo -u ${RUST_USER} /tmp/rustup-init -y && \
+  rm -f /tmp/rustup-init && \
   ${RUST_HOME}/.cargo/bin/rustup completions bash | tee /etc/bash_completion.d/rust >/dev/null && \
   chmod 0755 /etc/bash_completion.d/rust && \
   rsync -a ${RUST_HOME}/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/share/man/man1/ /usr/local/share/man/man1/
