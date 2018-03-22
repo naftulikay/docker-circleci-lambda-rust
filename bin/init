@@ -2,8 +2,31 @@
 
 set -e
 
+source "/usr/lib/bash/logging.sh"
+
+CIRCLECI_USER="circleci"
+
+CURRENT_USER="${CIRCLECI_USER}" \
+    CURRENT_GROUP="${CIRCLECI_USER}" \
+    CURRENT_UID="$(id -u "${CIRCLECI_USER}")" \
+    CURRENT_GID="$(id -g "${CIRCLECI_USER}")" \
+    USER_UID="$USER_UID" \
+    USER_GID="$USER_GID" \
+  id-remap
+
+CURRENT_USER_HOME="$(eval echo ~$CIRCLECI_USER)"
+
+export PATH="$CURRENT_USER_HOME/.cargo/bin:$CURRENT_USER_HOME/.local/bin:$PATH"
+
 if [ $# -eq 0 ]; then
-  exec bash -l
+  exec sudo -u "$CIRCLECI_USER" PATH="$PATH" bash -l
 else
-  exec $@
+  executable="$1" && shift
+
+  if ! which "$executable" >/dev/null 2>&1 ; then
+    .error "ERROR: executable '$executable' not found" >&2
+    exit 255
+  fi
+
+  exec sudo -u "$CIRCLECI_USER" PATH="$PATH" $(which "${executable}") $@
 fi

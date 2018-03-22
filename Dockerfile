@@ -80,6 +80,13 @@ RUN curl -o /tmp/rustup-init -sSf https://static.rust-lang.org/rustup/dist/x86_6
   chmod 0755 /etc/bash_completion.d/rust && \
   rsync -a ${RUST_HOME}/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/share/man/man1/ /usr/local/share/man/man1/
 
+# install bash libraries
+RUN mkdir -p /usr/lib
+COPY lib/bash /usr/lib/bash
+
+# install id-remap
+COPY bin/id-remap /usr/sbin/id-remap
+
 # install init
 COPY bin/init /usr/sbin/init
 
@@ -87,7 +94,6 @@ COPY bin/init /usr/sbin/init
 COPY bin/degoss ./test/ /tmp/
 RUN /tmp/degoss /tmp/goss.yml && rm -fr /tmp/degoss /tmp/goss.yml /tmp/goss.d
 
-USER ${RUST_USER}
 WORKDIR ${RUST_HOME}
 ENV ["PATH", "/home/${RUST_USER}/.cargo/bin:/home/${RUST_USER}/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"]
 
